@@ -1,0 +1,20 @@
+package rules.airplane.sensor.priority.high
+
+import pl.edu.atar.airplanemanagement.events.LocationEvent;
+
+rule "Monitor Airplane Location"
+when
+    $e : LocationEvent()
+then
+    System.out.println("INFORMACJA: Samolot " + $e.getAirplaneId() + " jest na pozycji o szerokości geograficznej " + $e.getLatitude() +
+        " oraz długości geograficznej " + $e.getLongitude() +
+        " w momencie " + $e.getDateTime());
+end
+
+rule "Monitor Airplane Location Delay"
+when
+    $e : LocationEvent($ts : timestamp)
+    not(LocationEvent( this != $e, this after[0s, 10s] $e ))
+then
+    System.out.println("UWAGA: Pozycja samolotu " + $e.getAirplaneId() + " przekazana z opóźnieniem w momencie " + $ts);
+end
