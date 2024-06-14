@@ -11,10 +11,10 @@ then
         " w momencie " + $e.getDateTime());
 end
 
-rule "Monitor Airplane Location Delay"
+rule "Monitor Airplane Location Not Delivered Within Time Limits"
 when
     $e : LocationEvent($ts : timestamp)
     not(LocationEvent( this != $e, this after[0s, 10s] $e ))
 then
-    System.out.println("UWAGA: Pozycja samolotu " + $e.getAirplaneId() + " przekazana z opóźnieniem w momencie " + $ts);
+    System.out.println("UWAGA: Nie przekazano pozycji samolotu " + $e.getAirplaneId() + " w wymaganym interwale czasowym. Zdarzenie zarejestrowano " + $ts + " [" + $e.getDateTime() + "]");
 end

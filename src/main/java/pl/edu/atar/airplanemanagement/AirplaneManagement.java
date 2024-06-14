@@ -45,9 +45,9 @@ public class AirplaneManagement {
             try {
                 double latitude = 37.8999;
                 double longitude = -108.8726;
-                long interval = 5;
-                while (true) {
+                long interval = 15;
 
+                while (true) {
                     // Dodanie zdarzeń, alternatywnie zdarzenia mogą dostarczane przez odpowiedni broker np. Kafkę.
                     kSession.insert(new LocationEvent("SXS48Z", latitude, longitude, pclock.getCurrentTime()));
 
